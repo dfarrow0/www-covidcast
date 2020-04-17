@@ -56,6 +56,8 @@
   }
 
   class Chart {
+    x
+    y
 
     constructor(chartType, data) {
       console.log("chart constructor: " + chartType);
@@ -102,9 +104,9 @@
       var parseDate = d3.timeParse('%Y-%m-%d');
 
       // set ranges
-      var x = d3.scaleBand()
+      this.x = d3.scaleBand()
                   .rangeRound([0, width]);
-      var y = d3.scaleLinear()
+      this.y = d3.scaleLinear()
                   .range([height, 0]);
 
       // attach graphic
