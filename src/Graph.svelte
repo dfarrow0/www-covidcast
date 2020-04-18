@@ -12,7 +12,6 @@
   // test data - global variables for line graph
   var counties = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'];
   var currentDate = new Date(2020, 3, 14);
-  var test = 0;
 
   // the $ syntax just says, if w is changed, run drawGraph() - e.g. redraw the graph when the window is resized.
   // $: w, drawGraph();
@@ -29,23 +28,19 @@
   var currentChart = 0;
 
   function drawGraph() {
-    console.log('draw graph');
     let chart = new Chart();
     chart.draw();
     userCharts.push(chart);
   }
 
   function updateGraph() {
-    console.log('update');
     if (userCharts != undefined) {
-      var test = userCharts[currentChart].isChart(this);
-      console.log(test);
-      var dataResults = parseData();
-      var graphType = dataResults[0];
-      var graphData = dataResults[1];
       if(userCharts[currentChart].isChart()) {
         userCharts[currentChart].draw();
       } else {
+        var dataResults = parseData();
+        var graphType = dataResults[0];
+        var graphData = dataResults[1];
         userCharts[currentChart] = new Chart(graphType, graphData);
         userCharts[currentChart].draw();
       }
@@ -61,29 +56,35 @@
     // console.log('region: ' + region);
 
     // search for the ID
-    let re = new RegExp('US[0-9]+');
-    let geo = region.match(re);
+    // let re = new RegExp('US[0-9]+');
+    // let geo = region.match(re);
     // let graphData = data[geo];
     // console.log('region data: ' + geo);
-    // console.log(graphData);
+    // data = JSON.parse(data);
+    // console.log('data: ' + typeof(data[0]));
     // let gData = null;
-    // for(var i in data) {
-    //   console.log(i);
-    //   if(i.geo_id == geo) { gData = i; }
-    //   break;
+    // console.log(data.length);
+    // for(var i=0; i<data.length; i++) {
+    //   for(var j=0; j<data[i].length; j++) {
+    //     console.log(data[0][i]);
+    //     if(i.geo_id == geo) {
+    //       gData = i;
+    //       break;
+    //     }
+    //   }
     // }
-    // let gData = $(data).filter(function(k, v) {
-    //   return v.geo_id == geo;
-    // });
+    // console.log(gData);
+    // // let gData = $(data).filter(function(k, v) {
+    // //   return v.geo_id == geo;
+    // // });
     // console.log('filter: ' + gData);
 
     // todo: finish parsing data
 
     // todo: determine chart type based on data
     var cType = lineGraph;
-    console.log(cType);
 
-    var graphData = {
+    var dummyData = {
       county1: {
         '03-30-2020': 20,
         '03-31-2020': 22,
@@ -119,7 +120,7 @@
         '04-13-2020': 101,
       },
     };
-    return [cType, graphData];
+    return [cType, dummyData];
   }
 
   class Chart {
@@ -130,12 +131,10 @@
       this.y = null;
       switch (chartType) {
         case 'Bar_Chart':
-          console.log('bar chart');
           chart = new BarChart();
           chart.setData(data);
           break;
         case 'Line_Graph':
-          console.log('line graph')
           chart = new LineGraph();
           chart.setData(data);
           break;
@@ -146,7 +145,6 @@
     }
 
     setData(data) {
-      console.log('data set: ' + data);
       this.verifyDataFormat(data);
       this.data === null
         ? (this.data = data)
@@ -212,7 +210,6 @@
   class BarChart extends Chart {
     // verify that the supplied data is an array of integers for a single data source
     verifyDataFormat(data) {
-      console.log('bar chart');
       super.verifyDataFormat();
       !Number.isInteger(Object.values(data))
         ? TypeError('Provided data is of the wrong type. Only integers accepted.')
@@ -224,7 +221,6 @@
     }
 
     draw() {
-      console.log('draw bar chart');
       super.draw();
 
       // construct the x and y domain from the data
@@ -269,7 +265,6 @@
 
   class LineGraph extends Chart {
     draw() {
-      console.log('draw line graph');
       // if there is an existing chart, remove it and redraw
       d3.select(el)
         .selectAll('*')

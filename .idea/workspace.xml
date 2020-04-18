@@ -35,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Graph.svelte">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="226" column="36" selection-start-line="226" selection-start-column="36" selection-end-line="226" selection-end-column="36" />
+            <state relative-caret-position="595">
+              <caret line="79" column="10" lean-forward="true" selection-start-line="58" selection-start-column="10" selection-end-line="79" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -44,7 +44,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MapBox.svelte">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
+            <state relative-caret-position="612">
               <caret line="45" column="6" selection-start-line="45" selection-start-column="6" selection-end-line="45" selection-end-column="6" />
             </state>
           </provider>
@@ -180,7 +180,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52845000" />
+    <option name="totallyTimeSpent" value="55097000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -241,7 +241,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MapBox.svelte">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
+        <state relative-caret-position="612">
           <caret line="45" column="6" selection-start-line="45" selection-start-column="6" selection-end-line="45" selection-end-column="6" />
         </state>
       </provider>
@@ -265,8 +265,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Graph.svelte">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="226" column="36" selection-start-line="226" selection-start-column="36" selection-end-line="226" selection-end-column="36" />
+        <state relative-caret-position="595">
+          <caret line="79" column="10" lean-forward="true" selection-start-line="58" selection-start-column="10" selection-end-line="79" selection-end-column="10" />
         </state>
       </provider>
     </entry>
