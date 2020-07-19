@@ -34,6 +34,7 @@
     radiusScale,
     dict,
     special_counties,
+    zoneHRRMap
   } from '../stores';
   import * as d3 from 'd3';
   import logspace from 'compute-logspace';
@@ -1076,7 +1077,29 @@
   }
 
   function showZoneBoundary(zoneName) {
+
     if (zoneName === 'swpa') {
+      const zips = $geojsons.get('zip-hrr-map').filter(item => item.hrrnum === zoneHRRMap.swpa).map(item => item.zipcode18.toString())
+      console.log(zips)
+
+    
+
+      const zoneGeojson = {
+        "type": "FeatureCollection",
+        "features": $geojsons.get('pa-zcta').features.filter(item => {
+          if (zips.includes( item.properties.ZCTA )) {
+            return true;
+          } else {
+            return false
+          }
+        })
+      }
+
+      map.addSource('swpa-zcta-outline', {
+        type: 'geojson',
+        data: zoneGeojson
+      });
+
       map.addLayer({
         id: 'zone-outline',
         source: 'zone-outline',
@@ -1084,6 +1107,17 @@
         paint: {
           'line-color': MAP_THEME.zoneOutline,
           'line-width': 2,
+          'line-dasharray': [2, 2],
+        },
+      });
+
+      map.addLayer({
+        id: 'swpa-zcta-outline',
+        source: 'swpa-zcta-outline',
+        type: 'line',
+        paint: {
+          'line-color': MAP_THEME.zctaOutline,
+          'line-width': 1,
           'line-dasharray': [2, 2],
         },
       });

@@ -103,6 +103,10 @@ export const special_counties = [
   'Winchester',
 ];
 
+export const zoneHRRMap = {
+  swpa: 357,
+};
+
 // Set of options for which signals to display.
 // Checks the ?sensors= URI parameter for a custom view,
 // otherwise uses the default.
@@ -291,7 +295,9 @@ export const geojsons = readable(new Map(), function start(set) {
     d3.json('./maps/county_centers.json'),
     d3.json('./maps/msa_centers.json'),
     d3.json('./maps/new_zones.json'),
-  ]).then(([a, b, c, d, e, f, g, h]) => {
+    d3.json('./maps/zip_data/zip_hrr.json'),
+    d3.json('./maps/pa-zcta-reprojected.json'),
+  ]).then(([a, b, c, d, e, f, g, h, i, j]) => {
     let m = new Map();
     m.set('county', injectIDs('county', a));
     m.set('state', injectIDs('state', b));
@@ -301,6 +307,9 @@ export const geojsons = readable(new Map(), function start(set) {
     m.set('county-centers', injectIDs('county-centers', f));
     m.set('msa-centers', injectIDs('msa-centers', g));
     m.set('zone', h);
+    m.set('zip-hrr-map', i);
+    m.set('pa-zcta', j);
+    // m.set('zip-hrr-map', i);
     set(m);
   });
 });
