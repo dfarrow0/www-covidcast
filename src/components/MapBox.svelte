@@ -1079,10 +1079,7 @@
   function showZoneBoundary(zoneName) {
 
     if (zoneName === 'swpa') {
-      const zips = $geojsons.get('zip-hrr-map').filter(item => item.hrrnum === zoneHRRMap.swpa).map(item => item.zipcode18.toString())
-      console.log(zips)
-
-    
+      const zips = $geojsons.get('zip-hrr-map').filter(item => item.hrrnum === zoneHRRMap.swpa).map(item => item.zipcode18.toString());
 
       const zoneGeojson = {
         "type": "FeatureCollection",
@@ -1114,11 +1111,11 @@
       map.addLayer({
         id: 'swpa-zcta-outline',
         source: 'swpa-zcta-outline',
-        type: 'line',
+        type: 'fill',
         paint: {
-          'line-color': MAP_THEME.zctaOutline,
-          'line-width': 1,
-          'line-dasharray': [2, 2],
+          'fill-color': 'grey',
+          'fill-outline-color': MAP_THEME.countyOutline,
+          'fill-opacity': 0.3,
         },
       });
     }
