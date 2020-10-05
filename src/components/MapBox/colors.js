@@ -1,7 +1,6 @@
 import { scaleSequential, scaleSequentialLog } from 'd3-scale';
 import logspace from 'compute-logspace';
 import { DIRECTION_THEME, ZERO_COLOR, MISSING_COLOR } from '../../theme';
-import { zip } from '../../util';
 import { MISSING_VALUE } from './encodings/utils';
 import { primaryValue } from '../../stores/constants';
 
@@ -95,18 +94,17 @@ function determineDirectionColorScale() {
  * @param {[number, number]} valueMinMax
  */
 function regularSignalColorScale(valueMinMax, sensorEntry) {
-  const center = valueMinMax[0] + (valueMinMax[1] - valueMinMax[0]) / 2;
-  const firstHalfCenter = valueMinMax[0] + (center - valueMinMax[0]) / 2;
-  const secondHalfCenter = center + (valueMinMax[1] - center) / 2;
+  const min = valueMinMax[0];
+  const max = valueMinMax[1];
 
+  const p50 = min + (max - min) / 2;
+  const p25 = min + (p50 - min) / 2;
+  const p75 = p50 + (max - p50) / 2;
   const colorScaleLinear = scaleSequential(sensorEntry.colorScale).domain(valueMinMax);
-
   // domainStops5 is used for other cases (prop signals)
-  const domainStops5 = [valueMinMax[0], firstHalfCenter, center, secondHalfCenter, valueMinMax[1]];
+  const domainStops5 = [min, p25, p50, p75, max];
 
-  const linearColors5 = domainStops5.map((c) => colorScaleLinear(c).toString());
-
-  const stops = zip(domainStops5, linearColors5);
+  const stops = domainStops5.map((c) => [c, colorScaleLinear(c).toString()]);
   return { stops, scale: colorScaleLinear };
 }
 
@@ -117,17 +115,7 @@ function regularSignalColorScale(valueMinMax, sensorEntry) {
 function propSignalColorScale(valueMinMax, sensorEntry) {
   const min = Math.max(valueMinMax[0], 0);
   const max = Math.max(min + 0.01, valueMinMax[1]);
-
-  const center = min + (max - min) / 2;
-  const firstHalfCenter = min + (center - min) / 2;
-  const secondHalfCenter = center + (max - center) / 2;
-  const colorScaleLinear = scaleSequential(sensorEntry.colorScale).domain(valueMinMax);
-  // domainStops5 is used for other cases (prop signals)
-  const domainStops5 = [min, firstHalfCenter, center, secondHalfCenter, max];
-  const linearColors5 = domainStops5.map((c) => colorScaleLinear(c).toString());
-
-  const stops = zip(domainStops5, linearColors5);
-  return { stops, scale: colorScaleLinear };
+  return regularSignalColorScale([min, max], sensorEntry);
 }
 
 /**
@@ -140,10 +128,7 @@ function countSignalColorScale(valueMinMax, sensorEntry) {
   // domainStops7 is used to determine the colors of regions for count signals.
   const domainStops7 = logspace(Math.log10(valueMinMax[0]), Math.log10(valueMinMax[1]), TICK_COUNT);
 
-  const logColors7 = domainStops7.map((c) => colorScaleLog(c).toString());
-
-  // use log scale
-  const stops = zip(domainStops7, logColors7);
+  const stops = domainStops7.map((c) => [c, colorScaleLog(c).toString()]);
   return { stops, scale: colorScaleLog };
 }
 

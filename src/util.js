@@ -6,10 +6,6 @@ export function getTextColorBasedOnBackground(bgColor) {
   return color.l > 0.32 ? '#000' : '#fff';
 }
 
-export function zip(a1, a2) {
-  return a1.map((value, index) => [value, a2[index]]);
-}
-
 export function transparent(colors, opacity) {
   if (!Array.isArray(colors)) {
     return transparent([colors], opacity)[0];
