@@ -14,6 +14,12 @@
 
   export let showEncodings = false;
   export let loading = false;
+
+  const encodings = [
+    ['color', 'Choropleth'],
+    ['bubble', 'Bubble Map'],
+    ['spike', 'Spike Map'],
+  ];
 </script>
 
 <style>
@@ -33,7 +39,7 @@
     color: transparent;
   }
 
-  .choropleth {
+  .color {
     background-image: url('../assets/imgs/choropleth_small.png');
   }
   .bubble {
@@ -93,39 +99,19 @@
   </div>
   {#if showEncodings && $isValueSignalType}
     <div class="pg-button-vertical-group">
-      <button
-        aria-pressed={$encoding === 'color' ? 'true' : 'false'}
-        class="pg-button encoding-button choropleth"
-        class:selected={$encoding === 'color'}
-        on:click={() => {
-          encoding.set('color');
-        }}
-        title="Switch to Choropleth">
-        <span aria-hidden>Switch to Choropleth</span>
-        <IoMdHome />
-      </button>
-      <button
-        aria-pressed={$encoding === 'bubble' ? 'true' : 'false'}
-        class="pg-button encoding-button bubble"
-        class:selected={$encoding === 'bubble'}
-        on:click={() => {
-          encoding.set('bubble');
-        }}
-        title="Switch to Bubble Map">
-        <span aria-hidden>Switch to Bubble Map</span>
-        <IoMdHome />
-      </button>
-      <button
-        aria-pressed={$encoding === 'spike' ? 'true' : 'false'}
-        class="pg-button encoding-button spike"
-        class:selected={$encoding === 'spike'}
-        on:click={() => {
-          encoding.set('spike');
-        }}
-        title="Switch to Spike Map">
-        <span aria-hidden>Switch to Spike Map</span>
-        <IoMdHome />
-      </button>
+      {#each encodings as enc}
+        <button
+          aria-pressed={String($encoding === enc[0])}
+          class="pg-button encoding-button {enc[0]}"
+          class:selected={$encoding === enc[0]}
+          on:click={() => {
+            encoding.set(enc[0]);
+          }}
+          title="Switch to {enc[1]}">
+          <span aria-hidden>Switch to {enc[1]}</span>
+          <IoMdHome />
+        </button>
+      {/each}
     </div>
   {/if}
   {#if loading}
