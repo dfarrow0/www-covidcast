@@ -7,8 +7,5 @@ export function toCenterSource(level) {
 }
 
 export const S = {
-  spike: {
-    fill: 'spike-fill-source',
-  },
   cityPoint: 'city-point',
 };
