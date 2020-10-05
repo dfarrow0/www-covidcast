@@ -25,6 +25,7 @@
 
   $: {
     if ($currentInfoSensor && close) {
+      // auto focus close button
       close.focus();
     }
   }

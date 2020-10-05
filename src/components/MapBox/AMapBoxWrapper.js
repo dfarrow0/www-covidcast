@@ -10,7 +10,7 @@ import style from './mapbox_albers_usa_style.json';
 import { toBorderSource, toCenterSource } from './sources';
 import ZoomMap from './ZoomMap';
 import { observeResize, unobserveResize } from '../../util';
-import { throttle } from 'lodash-es';
+import throttle from 'lodash-es/throttle';
 
 /**
  * @typedef {object} MapBoxWrapperOptions
@@ -469,7 +469,7 @@ export default class AMapBoxWrapper {
       source: toBorderSource(feature.properties.level),
       id: typeof id === 'string' ? Number.parseInt(feature.id, 10) : feature.id,
     });
-    return state.value == null || state.value === MISSING_VALUE;
+    return !state || state.value == null || state.value === MISSING_VALUE;
   }
 
   selectRandom() {

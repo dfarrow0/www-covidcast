@@ -1,4 +1,3 @@
-import 'mapbox-gl/dist/mapbox-gl.css';
 import { bounds, loadSWPASources } from '../../maps';
 import { swpaLevels } from '../../stores/constants';
 import { MAP_THEME, ENCODING_BUBBLE_THEME, ENCODING_SPIKE_THEME } from '../../theme';

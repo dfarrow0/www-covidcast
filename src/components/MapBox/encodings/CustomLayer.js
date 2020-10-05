@@ -146,38 +146,38 @@ export class CustomLayer {
    * @param {number[]} matrix
    */
   preRender(gl) {
-    if (this._colorsDirty) {
-      this._colorsDirty = false;
-      for (let i = 0; i < this.featureIds.length; i++) {
-        const id = this.featureIds[i];
-        const v = this._valueLookup.has(id) ? this._valueLookup.get(id)[this._valuePrimaryValue] : null;
+    if (!this._colorsDirty) {
+      return;
+    }
+    this._colorsDirty = false;
+    for (let i = 0; i < this.featureIds.length; i++) {
+      const id = this.featureIds[i];
+      const v = this._valueLookup.has(id) ? this._valueLookup.get(id)[this._valuePrimaryValue] : null;
 
-        // 4 points with each 4 components
-        const perV = this._verticesPerFeatures;
+      const perV = this._verticesPerFeatures;
 
-        if (v == null || Number.isNaN(v)) {
-          for (let j = 0; j < perV; j++) {
-            const r = i * 4 * perV + j * 4;
-            this._colorAndValueData[r] = 0;
-            this._colorAndValueData[r + 1] = 0;
-            this._colorAndValueData[r + 2] = 0;
-            this._colorAndValueData[r + 3] = 0;
-          }
-          continue;
-        }
-        const color = rgb(this._valueToColor(v));
-        const size = this._valueToSize(v);
+      if (v == null || Number.isNaN(v)) {
         for (let j = 0; j < perV; j++) {
           const r = i * 4 * perV + j * 4;
-          this._colorAndValueData[r] = color.r;
-          this._colorAndValueData[r + 1] = color.g;
-          this._colorAndValueData[r + 2] = color.b;
-          this._colorAndValueData[r + 3] = size;
+          this._colorAndValueData[r] = 0;
+          this._colorAndValueData[r + 1] = 0;
+          this._colorAndValueData[r + 2] = 0;
+          this._colorAndValueData[r + 3] = 0;
         }
+        continue;
       }
-      gl.bindBuffer(gl.ARRAY_BUFFER, this._colorAndValueBuffer);
-      gl.bufferData(gl.ARRAY_BUFFER, this._colorAndValueData, gl.STATIC_DRAW);
+      const color = rgb(this._valueToColor(v));
+      const size = this._valueToSize(v);
+      for (let j = 0; j < perV; j++) {
+        const r = i * 4 * perV + j * 4;
+        this._colorAndValueData[r] = color.r;
+        this._colorAndValueData[r + 1] = color.g;
+        this._colorAndValueData[r + 2] = color.b;
+        this._colorAndValueData[r + 3] = size;
+      }
     }
+    gl.bindBuffer(gl.ARRAY_BUFFER, this._colorAndValueBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, this._colorAndValueData, gl.STATIC_DRAW);
   }
 
   /**
