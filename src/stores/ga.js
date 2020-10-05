@@ -12,7 +12,7 @@ import {
   currentInfoSensor,
 } from '.';
 
-import { debounce } from 'lodash-es';
+import debounce from 'lodash-es/debounce';
 
 export const trackUrl = debounce((url) => {
   if (!window.ga) {

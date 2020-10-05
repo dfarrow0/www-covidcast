@@ -16,7 +16,7 @@
   import { getInfoByName, nameInfos } from '../../maps';
   import Top10Sensor from './Top10Sensor.svelte';
   import Search from '../../components/Search.svelte';
-  import { throttle } from 'lodash-es';
+  import throttle from 'lodash-es/throttle';
   import Top10SortHint from './Top10SortHint.svelte';
   import { levelMegaCounty, groupedSensorList, sensorList, primaryValue } from '../../stores/constants';
 

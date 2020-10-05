@@ -23,8 +23,7 @@ import { selectionColors } from '../theme';
  * @typedef {import('../data/fetchData').EpiDataRow} EpiDataRow
  */
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
+const urlParams = new URLSearchParams(window.location.search);
 
 export const times = writable(null);
 export const stats = writable(null);
