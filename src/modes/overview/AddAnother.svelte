@@ -70,10 +70,6 @@
     overflow: auto;
   }
 
-  ul.empty {
-    flex: 0 0 auto;
-  }
-
   ol {
     flex: 2 1 0;
   }
@@ -162,13 +158,10 @@
   {#if possibleRecent.length > 0}
     <h5>Select from recent locations</h5>
 
-    <ul class:empty={possibleRecent.length === 0}>
+    <ul>
       {#each possibleRecent.reverse() as info}
         <li><button class="button" on:click={() => dispatch('add', info)}>{info.displayName}</button></li>
       {/each}
-      {#if possibleRecent.length === 0}
-        <li>No recent locations founds</li>
-      {/if}
     </ul>
   {/if}
 </section>
